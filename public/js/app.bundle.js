@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,12 +73,95 @@
 "use strict";
 
 
-var angular = __webpack_require__(2);
+CreditsController.$inject = ['CreditsService']; //the http call should really be happening in the service
+
+function CreditsController(CreditsService) {
+  console.log('credits controller here');
+  var vm = this;
+  vm.creditEntries = [
+    // {amount: 123, note: "hello", createdAt: 123},
+    // {amount: 223, note: "hi", createdAt: 123}
+  ];
+
+  //NEED TO READ ALL OF THE CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
+  function getCredits() {
+    CreditsService.getCredits().then(function (response) {
+      console.log(response);
+      vm.creditEntries = response.data.credits;
+    });
+  }
+  getCredits();
+
+  vm.addCredit = function () {
+    console.log(vm.newCreditAmount);
+
+    //make an ajax call to save the new credit to the db
+    //only push to the creditentries array if the ajax call is successful
+
+    vm.creditEntries.push({ amount: vm.newCreditAmount,
+      note: vm.newCreditNote,
+      createdAt: new Date()
+    });
+    vm.resetForm();
+  };
+
+  vm.resetForm = function () {
+    vm.newCreditAmount = '';
+  };
+}
+
+module.exports = CreditsController;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var angular = __webpack_require__(5);
 
 angular.module('BudgetApp', []);
 
 /***/ }),
-/* 1 */
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var creditsTemplate = __webpack_require__(6);
+var creditsController = __webpack_require__(0);
+
+var CreditsComponent = {
+  template: creditsTemplate,
+  controller: creditsController
+};
+
+angular.module('BudgetApp').component('credits', CreditsComponent);
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+CreditsService.$inject = ['$http'];
+
+function CreditsService($http) {
+  var self = this;
+
+  self.getCredits = function () {
+    console.log('get credits');
+    return $http.get('/credits');
+  };
+}
+
+angular.module('BudgetApp').service('CreditsService', CreditsService);
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 /**
@@ -33455,18 +33538,27 @@ $provide.value("$locale", {
 !window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ }),
-/* 2 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1);
+__webpack_require__(4);
 module.exports = angular;
 
 
 /***/ }),
-/* 3 */
+/* 6 */
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCreditAmount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCreditNote'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>$515</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt}}</td>\n    </tr>\n  </table>\n\n</div>\n";
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(0);
+__webpack_require__(1);
+__webpack_require__(2);
+__webpack_require__(0);
+module.exports = __webpack_require__(3);
 
 
 /***/ })

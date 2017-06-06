@@ -1,0 +1,20 @@
+<div>
+  <h1>CREDIT PAGE</h1>
+  <form ng-submit='$ctrl.addCredit()'>
+    <div>add $<input type="text" name="" ng-model='$ctrl.newCreditAmount'></div>
+    <div>NOTE: <input type="text" name="" ng-model='$ctrl.newCreditNote'></div>
+    <input type='submit' value='Add to Credit'>
+  </form>
+
+  <h3>Total Credit</h3>
+  <h3>$515</h3>
+
+  <table>
+    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>
+      <td>{{creditEntry.amount}}</td>
+      <td>{{creditEntry.note}}</td>
+      <td>{{creditEntry.createdAt}}</td>
+    </tr>
+  </table>
+
+</div>
