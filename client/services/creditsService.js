@@ -8,7 +8,6 @@ function CreditsService($http) {
   }
 
   self.addCredit = function (newCredit) {
-    console.log('add credit')
     var newCreditPromise = $http.post('/credits', newCredit);
     return newCreditPromise;
   }

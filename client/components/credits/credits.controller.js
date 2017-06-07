@@ -35,8 +35,9 @@ function CreditsController(CreditsService) {
         note: vm.newCredit.note,
         createdAt: new Date()
       });
+      vm.totalCredit += vm.newCredit.amount;
       vm.resetForm();
-    })
+    });
     vm.resetForm = function () {
       vm.newCredit = {};
     }

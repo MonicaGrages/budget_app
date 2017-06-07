@@ -106,6 +106,7 @@ function CreditsController(CreditsService) {
         note: vm.newCredit.note,
         createdAt: new Date()
       });
+      vm.totalCredit += vm.newCredit.amount;
       vm.resetForm();
     });
     vm.resetForm = function () {
@@ -161,7 +162,6 @@ function CreditsService($http) {
   };
 
   self.addCredit = function (newCredit) {
-    console.log('add credit');
     var newCreditPromise = $http.post('/credits', newCredit);
     return newCreditPromise;
   };
@@ -33558,7 +33558,7 @@ module.exports = angular;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCredit.amount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCredit.note'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>{{$ctrl.totalCredit}}</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount | currency}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt | date }}</td>\n    </tr>\n  </table>\n\n</div>\n";
+module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"number\" name=\"\" ng-model='$ctrl.newCredit.amount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCredit.note'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>{{$ctrl.totalCredit}}</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount | currency}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt | date }}</td>\n    </tr>\n  </table>\n\n</div>\n";
 
 /***/ }),
 /* 7 */
