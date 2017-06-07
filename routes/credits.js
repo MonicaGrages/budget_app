@@ -10,8 +10,21 @@ router.get('/', function(request, response) {
       console.log('error while finding credits: '+error);
       return;
     }
-    response.json({credits: credits})
-  }).select('-__v');
+    response.json({credits: credits});
+  });
+});
+
+router.post('/', function(request, response) {
+  console.log('post called in credits router');
+  console.log(request.body);
+  var credit = new Credit(request.body);
+  credit.save(function(error) {
+    if(error) {
+      response.json({message: 'Could not create credit b/c: '+error});
+      return;
+    }
+    response.json({credit: credit});
+  });
 });
 
 module.exports = router;

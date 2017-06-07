@@ -4,8 +4,13 @@ function CreditsService($http) {
   var self = this;
 
   self.getCredits = function () {
-    console.log('get credits');
     return $http.get('/credits');
+  }
+
+  self.addCredit = function (newCredit) {
+    console.log('add credit')
+    var newCreditPromise = $http.post('/credits', newCredit);
+    return newCreditPromise;
   }
 
 

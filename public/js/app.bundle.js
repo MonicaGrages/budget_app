@@ -76,33 +76,36 @@
 CreditsController.$inject = ['CreditsService']; //the http call should really be happening in the service
 
 function CreditsController(CreditsService) {
-  console.log('credits controller here');
   var vm = this;
   vm.creditEntries = [
     // {amount: 123, note: "hello", createdAt: 123},
     // {amount: 223, note: "hi", createdAt: 123}
   ];
 
+  vm.getCredits = getCredits;
   //NEED TO READ ALL OF THE CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
   function getCredits() {
     CreditsService.getCredits().then(function (response) {
-      console.log(response);
       vm.creditEntries = response.data.credits;
     });
   }
   getCredits();
 
   vm.addCredit = function () {
-    console.log(vm.newCreditAmount);
-
+    console.log(vm.newCredit);
+    CreditsService.addCredit(vm.newCredit).then(function (response) {
+      vm.getCredits();
+    }
     //make an ajax call to save the new credit to the db
     //only push to the creditentries array if the ajax call is successful
 
-    vm.creditEntries.push({ amount: vm.newCreditAmount,
-      note: vm.newCreditNote,
-      createdAt: new Date()
-    });
-    vm.resetForm();
+    // vm.creditEntries.push(
+    //   {amount: vm.newCreditAmount,
+    //     note: vm.newCreditNote,
+    //     createdAt: new Date()
+    //   })
+    // vm.resetForm();
+    );
   };
 
   vm.resetForm = function () {
@@ -153,8 +156,13 @@ function CreditsService($http) {
   var self = this;
 
   self.getCredits = function () {
-    console.log('get credits');
     return $http.get('/credits');
+  };
+
+  self.addCredit = function (newCredit) {
+    console.log('add credit');
+    var newCreditPromise = $http.post('/credits', newCredit);
+    return newCreditPromise;
   };
 }
 
@@ -33549,7 +33557,7 @@ module.exports = angular;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCreditAmount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCreditNote'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>$515</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount | currency}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt | date }}</td>\n    </tr>\n  </table>\n\n</div>\n";
+module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCredit.amount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCredit.note'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>$515</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount | currency}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt | date }}</td>\n    </tr>\n  </table>\n\n</div>\n";
 
 /***/ }),
 /* 7 */
