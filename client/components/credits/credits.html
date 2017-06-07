@@ -11,9 +11,9 @@
 
   <table>
     <tr ng-repeat='creditEntry in $ctrl.creditEntries'>
-      <td>{{creditEntry.amount}}</td>
+      <td>{{creditEntry.amount | currency}}</td>
       <td>{{creditEntry.note}}</td>
-      <td>{{creditEntry.createdAt}}</td>
+      <td>{{creditEntry.createdAt | date }}</td>
     </tr>
   </table>
 

@@ -33549,7 +33549,7 @@ module.exports = angular;
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCreditAmount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCreditNote'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>$515</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt}}</td>\n    </tr>\n  </table>\n\n</div>\n";
+module.exports = "<div>\n  <h1>CREDIT PAGE</h1>\n  <form ng-submit='$ctrl.addCredit()'>\n    <div>add $<input type=\"text\" name=\"\" ng-model='$ctrl.newCreditAmount'></div>\n    <div>NOTE: <input type=\"text\" name=\"\" ng-model='$ctrl.newCreditNote'></div>\n    <input type='submit' value='Add to Credit'>\n  </form>\n\n  <h3>Total Credit</h3>\n  <h3>$515</h3>\n\n  <table>\n    <tr ng-repeat='creditEntry in $ctrl.creditEntries'>\n      <td>{{creditEntry.amount | currency}}</td>\n      <td>{{creditEntry.note}}</td>\n      <td>{{creditEntry.createdAt | date }}</td>\n    </tr>\n  </table>\n\n</div>\n";
 
 /***/ }),
 /* 7 */

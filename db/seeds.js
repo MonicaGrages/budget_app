@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var Credit = require('../db/schema.js');
+var Credit = require('./schema.js');
 
 mongoose.Promise = global.Promise;
 
