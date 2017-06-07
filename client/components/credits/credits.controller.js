@@ -8,7 +8,7 @@ function CreditsController(CreditsService) {
   ];
 
   vm.getCredits = getCredits;
-//NEED TO READ ALL OF THE CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
+//READ ALL CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
   function getCredits() {
     CreditsService.getCredits()
     .then(function (response) {
@@ -17,25 +17,19 @@ function CreditsController(CreditsService) {
   }
   getCredits();
 
+//Add new credit entry
   vm.addCredit = function() {
-    console.log(vm.newCredit);
     CreditsService.addCredit(vm.newCredit)
     .then(function(response) {
-      vm.getCredits();
+      vm.creditEntries.push({
+        amount: vm.newCredit.amount,
+        note: vm.newCredit.note,
+        createdAt: new Date()
+      });
+      vm.resetForm();
     })
-    //make an ajax call to save the new credit to the db
-    //only push to the creditentries array if the ajax call is successful
-
-    // vm.creditEntries.push(
-    //   {amount: vm.newCreditAmount,
-    //     note: vm.newCreditNote,
-    //     createdAt: new Date()
-    //   })
-    // vm.resetForm();
-  };
-
-  vm.resetForm = function () {
-    vm.newCreditAmount = '';
+    vm.resetForm = function () {
+    vm.newCredit = {};
   }
 }
 

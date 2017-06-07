@@ -12,8 +12,6 @@ function CreditsService($http) {
     var newCreditPromise = $http.post('/credits', newCredit);
     return newCreditPromise;
   }
-
-
 }
 
 angular.module('BudgetApp')

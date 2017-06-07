@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Credit = require('../db/schema.js')
 
-
+//get all credits
 router.get('/', function(request, response) {
       console.log('getCredits route');
   Credit.find(function(error, credits) {
@@ -14,6 +14,7 @@ router.get('/', function(request, response) {
   });
 });
 
+/post new credit
 router.post('/', function(request, response) {
   console.log('post called in credits router');
   console.log(request.body);

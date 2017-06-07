@@ -68,52 +68,10 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-CreditsController.$inject = ['CreditsService']; //the http call should really be happening in the service
-
-function CreditsController(CreditsService) {
-  var vm = this;
-  vm.creditEntries = [
-    // {amount: 123, note: "hello", createdAt: 123},
-    // {amount: 223, note: "hi", createdAt: 123}
-  ];
-
-  vm.getCredits = getCredits;
-  //NEED TO READ ALL OF THE CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
-  function getCredits() {
-    CreditsService.getCredits().then(function (response) {
-      vm.creditEntries = response.data.credits;
-    });
-  }
-  getCredits();
-
-  vm.addCredit = function () {
-    console.log(vm.newCredit);
-    CreditsService.addCredit(vm.newCredit).then(function (response) {
-      vm.getCredits();
-    }
-    //make an ajax call to save the new credit to the db
-    //only push to the creditentries array if the ajax call is successful
-
-    // vm.creditEntries.push(
-    //   {amount: vm.newCreditAmount,
-    //     note: vm.newCreditNote,
-    //     createdAt: new Date()
-    //   })
-    // vm.resetForm();
-    );
-  };
-
-  vm.resetForm = function () {
-    vm.newCreditAmount = '';
-  };
-}
-
-module.exports = CreditsController;
+throw new Error("Module build failed: SyntaxError: Unexpected token (37:0)\n\n\u001b[0m \u001b[90m 35 | \u001b[39m\n \u001b[90m 36 | \u001b[39mmodule\u001b[33m.\u001b[39mexports \u001b[33m=\u001b[39m \u001b[33mCreditsController\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 | \u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n");
 
 /***/ }),
 /* 1 */
