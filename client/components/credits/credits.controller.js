@@ -6,6 +6,13 @@ function CreditsController(CreditsService) {
     // {amount: 123, note: "hello", createdAt: 123},
     // {amount: 223, note: "hi", createdAt: 123}
   ];
+  vm.totalCredit = 0;
+  vm.calculateTotalCredit = function() {
+    for (let i=0; i<vm.creditEntries.length; i++) {
+      vm.totalCredit = vm.totalCredit + (vm.creditEntries[i]).amount;
+    }
+  }
+
 
   vm.getCredits = getCredits;
 //READ ALL CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
@@ -13,9 +20,11 @@ function CreditsController(CreditsService) {
     CreditsService.getCredits()
     .then(function (response) {
       vm.creditEntries = response.data.credits;
+      vm.calculateTotalCredit();
     })
   }
   getCredits();
+
 
 //Add new credit entry
   vm.addCredit = function() {
