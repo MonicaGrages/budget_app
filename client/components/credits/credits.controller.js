@@ -29,8 +29,11 @@ function CreditsController(CreditsService) {
       vm.resetForm();
     })
     vm.resetForm = function () {
-    vm.newCredit = {};
-  }
+      vm.newCredit = {};
+    }
+  };
+
+
 }
 
 module.exports = CreditsController;

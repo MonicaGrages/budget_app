@@ -68,10 +68,46 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-throw new Error("Module build failed: SyntaxError: Unexpected token (37:0)\n\n\u001b[0m \u001b[90m 35 | \u001b[39m\n \u001b[90m 36 | \u001b[39mmodule\u001b[33m.\u001b[39mexports \u001b[33m=\u001b[39m \u001b[33mCreditsController\u001b[39m\u001b[33m;\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 | \u001b[39m\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n");
+
+
+CreditsController.$inject = ['CreditsService']; //the http call should really be happening in the service
+
+function CreditsController(CreditsService) {
+  var vm = this;
+  vm.creditEntries = [
+    // {amount: 123, note: "hello", createdAt: 123},
+    // {amount: 223, note: "hi", createdAt: 123}
+  ];
+
+  vm.getCredits = getCredits;
+  //READ ALL CREDIT ENTRIES FROM THE DB WHEN PAGE LOADS
+  function getCredits() {
+    CreditsService.getCredits().then(function (response) {
+      vm.creditEntries = response.data.credits;
+    });
+  }
+  getCredits();
+
+  //Add new credit entry
+  vm.addCredit = function () {
+    CreditsService.addCredit(vm.newCredit).then(function (response) {
+      vm.creditEntries.push({
+        amount: vm.newCredit.amount,
+        note: vm.newCredit.note,
+        createdAt: new Date()
+      });
+      vm.resetForm();
+    });
+    vm.resetForm = function () {
+      vm.newCredit = {};
+    };
+  };
+}
+
+module.exports = CreditsController;
 
 /***/ }),
 /* 1 */
