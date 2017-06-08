@@ -14,7 +14,7 @@ router.get('/', function(request, response) {
   });
 });
 
-/post new credit
+//post new credit
 router.post('/', function(request, response) {
   console.log('post called in credits router');
   console.log(request.body);
